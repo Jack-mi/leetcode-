@@ -1,3 +1,5 @@
+package java;
+
 public class Q7 {
     public int reverse(int x) {
         int ans = 0;

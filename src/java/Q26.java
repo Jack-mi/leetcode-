@@ -1,3 +1,5 @@
+package java;
+
 class Q26 {
     public int removeDuplicates(int[] nums) {
         int i = 0;
