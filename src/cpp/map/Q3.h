@@ -8,6 +8,12 @@
 
 class Q3 {
 public:
+    /*
+     * start，end这对双指针和实际的unsorted_map是分离的
+     * 即二者不是同步更新
+     * 如此就可以做到当tmpchar存在时，start指针可以O（1）时间内跳转
+     * 因为真正起决定作用的是start和end的差值
+     * */
     int lengthOfLongestSubstring(string s) {
         unordered_map<char, int> charset;
         int start(0), end(0), ans(0), length(0);
