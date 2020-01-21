@@ -7,6 +7,7 @@ using namespace std;
 int main() {
     class Solution {
     public:
+        // 快排-双指针法
         void quicksort1(vector<int>& nums, int low, int high) {
             if (low > high)
                 return;
@@ -28,6 +29,7 @@ int main() {
             quicksort1(nums, low, i-1);
             quicksort1(nums, i+1, high);
         }
+        // 快排-挖坑法
         void quicksort(vector<int>& nums, int low, int high) {
             if (low > high)
                 return ;
@@ -52,35 +54,15 @@ int main() {
             quicksort(nums, i+1, high);
         }
         int findKthLargest(vector<int>& nums, int k) {
-            int ans = 0;
-            quicksort(nums, 0, nums.size()-1);
-            for (int j = 0; j < nums.size(); ++j) {
-                cout<<nums[j]<<' ';
-            }
-            cout<<endl;
             if (nums.size() == 1) {
                 return nums[0];
             }
-            if (k == 1) {
-                return nums[nums.size()-1];
-            }
-            int cnt = 2;
-            for (int i = nums.size()-2; i >= 0; --i) {
-                if (cnt == k) {
-                    ans = nums[i];
-                    break;
-                }
-                int pre = nums[i+1];
-                int next = nums[i];
-                if (pre != next) {
-                    cnt++;
-                }
-            }
-            return ans;
+            quicksort(nums, 0, nums.size()-1);
+            return nums[nums.size()-k];
         }
     };
     Solution* s = new Solution();
-    vector<int> nums = {3,-2,23,17,22,40,5,5,6};
-    cout<<s->findKthLargest(nums, 4)<<endl;
+    vector<int> nums = {1,1,1,2,2,3};
+
     return 0;
 }
