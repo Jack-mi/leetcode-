@@ -1,4 +1,8 @@
-// 快排-双指针法
+/*
+ * 快排-双指针法
+ * 单纯跑一次该函数的时间复杂度是O(n)
+ * 剩下的复杂度来源于调用quicksort1和2的次数，取决于pivot的选取
+ * */
 void quicksort1(vector<int>& nums, int low, int high) {
     if (low > high)
         return;
