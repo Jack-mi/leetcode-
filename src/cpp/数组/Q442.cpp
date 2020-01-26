@@ -6,14 +6,19 @@ public:
      * */
     vector<int> findDuplicates(vector<int>& nums) {
         vector<int> ans;
-        for(int i = 0;i < nums.size();i++) {
+        int i = 0;
+        while (i < nums.size()) {
             while(i < nums.size() && nums[i] != i+1) {
-                if(nums[i] == nums[nums[i]-1]) {
+                // 元素nums[i]的对等坐标，判断元素值是否等于"对等坐标值"
+                int pos = nums[i]-1;
+                if(nums[i] == nums[pos]) {
                     i++;
                     continue;
                 }
-                swap(nums[i], nums[nums[i]-1]);
+                // 让元素nums[i]交换到自己对等下标的位置
+                swap(nums[i], nums[pos]);
             }
+            i++;
         }
         for(int i = 0;i < nums.size();i++) {
             if(nums[i] != i+1)
