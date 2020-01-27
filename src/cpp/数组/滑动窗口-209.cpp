@@ -13,11 +13,8 @@ public:
                     sum += nums[p2];
             } else {
                 ans = min(ans, p2-p1+1);
-                if (p1 < p2) {
-                    sum -= nums[p1];
-                    p1++;
-                }
-                else break;
+                sum -= nums[p1];
+                p1++;
             }
         }
         return (ans==INT_MAX)?0:ans;
