@@ -1,33 +1,19 @@
-//
-// Created by 刘小粟 on 2019/12/1.
-//
-
-#ifndef LEETCODE_Q3_H
-#define LEETCODE_Q3_H
-
-
-class Q3 {
+class Solution {
 public:
-    /*
-     * start，end这对双指针和实际的unsorted_map是分离的
-     * 即二者不是同步更新
-     * 如此就可以做到当tmpchar存在时，start指针可以O（1）时间内跳转
-     * 因为真正起决定作用的是start和end的差值
-     * */
     int lengthOfLongestSubstring(string s) {
-        unordered_map<char, int> charset;
-        int start(0), end(0), ans(0), length(0);
-        while (end < s.length()) {
-            char tmpchar = s[end];
-            if(charset.find(tmpchar) != charset.end()) {
-                start = charset[tmpchar]+1>start?charset[tmpchar]+1:start;
+        unordered_map<char, int> window;
+        int p1(0), p2(0), ans(0);
+        while (p2 < s.length()) {
+            char cr = s[p2];
+            window[cr]++;
+            p2++;
+            while (window[cr] > 1) {
+                char cl = s[p1];
+                window[cl]--;
+                p1++;
             }
-            ans = (end-start+1)>ans?(end-start+1):ans;
-            charset[tmpchar] = end++;
+            ans = p2-p1>ans?p2-p1:ans;
         }
         return ans;
     }
 };
-
-
-#endif //LEETCODE_Q3_H
