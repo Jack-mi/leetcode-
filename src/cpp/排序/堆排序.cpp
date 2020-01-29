@@ -8,7 +8,7 @@ void swap(int& a, int& b) {
  * 时间复杂度：O(logn)
  * 自上向下的遍历，找到合适的位置放置该节点
  * */
-void maxHeadDown(vector<int>& nums, int start, int end) {
+void heapDown(vector<int>& nums, int start, int end) {
     int cur = start;
     int i = 2*start+1;
     for (; i <= end; cur = i, i = 2*cur+1) {
@@ -27,16 +27,18 @@ void maxHeadDown(vector<int>& nums, int start, int end) {
 void buildHeap(vector<int>& nums) {
     int len = nums.size();
     for (int i = len/2-1; i >= 0; i--)
-        maxHeadDown(nums, i, len-1);
+        heapDown(nums, i, len-1);
 }
 /*
  * 给定一个数组，先构建堆，然后实现堆排序
  * 时间复杂度：O(n*logn)
  * */
 void heapsort(vector<int>& nums) {
+    // 1.初始化堆
     buildHeap(nums);
+    // 2.堆排序
     for (int i = nums.size()-1; i >= 0; i--) {
         swap(nums[i], nums[0]);
-        maxHeadDown(nums, 0, i-1);
+        heapDown(nums, 0, i-1);
     }
 }
