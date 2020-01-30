@@ -8,6 +8,7 @@ void quicksort1(vector<int>& nums, int low, int high) {
         return;
     int i(low), j(high);
     int pivot = nums[low];
+    // 所有的i和j之间的关系都没有=，只考虑跳出循环的情况是i=j
     while (i < j) {
         while (i < j && nums[j]>=pivot)
             j--;

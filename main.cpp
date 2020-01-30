@@ -10,34 +10,49 @@ using namespace std;
 #define min(a,b) (a)<(b)?(a):(b)
 
 int main() {
+    struct ListNode {
+       int val;
+       ListNode *next;
+       ListNode(int x) : val(x), next(NULL) {}
+    };
     class Solution {
     public:
-        vector<int> topKFrequent(vector<int>& nums, int k) {
-            vector<int> res;
-            unordered_map<int, int> um;
-            for (int n:nums) um[n]++;
-            vector<vector<int>> bucket(nums.size()+1);
-            for (auto itr = um.begin(); itr != um.end(); itr++) {
-                bucket[itr->second].push_back(itr->first);
-            }
-            for (int i = bucket.size()-1; i >= 0; --i) {
-                for (int j = 0; j < bucket[i].size(); ++j) {
-                    res.push_back(bucket[i][j]);
-                    if (--k == 0)
-                        return res;
+        ListNode* Merge(ListNode* l1, ListNode* l2) {
+            ListNode* ptr = new ListNode(0);
+            ListNode* start = ptr;
+            while (l1 && l2) {
+                if (l1->val < l2->val) {
+                    ptr->next = l1;
+                    l1 = l1->next;
+                } else {
+                    ptr->next = l2;
+                    l2 = l2->next;
                 }
+                ptr = ptr->next;
             }
+            if (l1) {
+                ptr->next = l1;
+            } else {
+                ptr->next = l2;
+            }
+            return start->next;
+        }
+        ListNode* sortList(ListNode* head) {
+            if (head == NULL || head->next == NULL)
+                return head;
+            ListNode* slow = head , *fast = head;
+            // 快慢指针遍历mid和end
+            while (fast->next && fast->next->next) {
+                slow = fast->next;
+                fast = fast->next->next;
+            }
+            ListNode* right = slow->next;
+            slow->next = NULL;
+            ListNode* l1 = sortList(head);
+            ListNode* l2 = sortList(right);
+            ListNode* res = Merge(l1, l2);
             return res;
         }
     };
-
-    Solution* s = new Solution();
-    vector<int> nums = {1,1,1,2,2,3};
-    int k = 2;
-    vector<int> ans = s->topKFrequent(nums, k);
-    for (int l = 0; l < ans.size(); ++l) {
-        cout<<ans[l]<<' ';
-    }
-    cout<<endl;
     return 0;
 }
