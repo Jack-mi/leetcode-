@@ -1,41 +1,70 @@
 #include <iostream>
 #include <vector>
-#include <cstdio>
-#include <cstring>
-#include <queue>
-#include <map>
-#include <unordered_map>
 using namespace std;
 #define max(a,b) (a)>(b)?(a):(b)
 #define min(a,b) (a)<(b)?(a):(b)
 
-//1    5    9
-//10   11   13
-//12   13   15
-
 int main() {
     class Solution {
     public:
-        int kthSmallest(vector<vector<int>>& matrix, int k) {
-            priority_queue<int, vector<int>, greater<int>> q;
-            for (int i = 0; i < matrix.size(); ++i) {
-                for (int j = 0; j < matrix[i].size(); ++j) {
-                    q.push(matrix[i][j]);
+        vector<vector<char>> cboard;
+        int m, n;
+        string cword;
+        int dir[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
+        vector<vector<bool>> mark;
+        bool dfs(int x, int y, int step) {
+            if (cboard[x][y] != cword[step])
+                return false;
+            else {
+                if (step == cword.size()-1)
+                    return true;
+                for (auto d : dir) {
+                    int nx = x + d[0];
+                    int ny = y + d[1];
+                    // 搜索的关键，边界问题
+                    if (nx >= m || ny >= n || nx < 0 || ny < 0 || mark[nx][ny])
+                        continue;
+                    mark[x][y] = true;
+                    int f = dfs(nx, ny, step+1);
+                    mark[x][y] = false;
+                    if (f)
+                        return true;
                 }
             }
-            int n = matrix.size()*matrix[0].size();
-            int ans;
-            while (k--) {
-                ans = q.top();
-                q.pop();
+            return false;
+        }
+        bool exist(vector<vector<char>>& board, string word) {
+            cboard = board;
+            cword = word;
+            if (word.size() == 0)
+                return true;
+            if (board.size() == 0)
+                return false;
+            m = board.size();
+            n = board[0].size();
+            // 初始化二维vector
+            mark.resize(m);
+            for (int i = 0; i < m; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    mark[i].push_back(false);
+                }
             }
-            return ans;
+            for (int i = 0; i < m; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    if (dfs(i, j, 0))
+                        return true;
+                }
+            }
+            return false;
         }
     };
     Solution* s = new Solution();
-    vector<vector<int>> matrix = {{1,5,9},
-                                  {10,11,12},
-                                  {12,13,15}};
-    cout<<s->kthSmallest(matrix, 8);
+    vector<vector<char>> cboard = {
+            {'C','A','A'},
+            {'A','A','A'},
+            {'B','C','D'}
+    };
+    string w = "AAB";
+    cout<<s->exist(cboard, w)<<endl;
     return 0;
 }
