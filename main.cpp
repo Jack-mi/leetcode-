@@ -7,64 +7,58 @@ using namespace std;
 int main() {
     class Solution {
     public:
-        vector<vector<char>> cboard;
+        vector<vector<int>> g;
+        int mark[55][55];
+        int dir[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
         int m, n;
-        string cword;
-        int dir[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
-        vector<vector<bool>> mark;
-        bool dfs(int x, int y, int step) {
-            if (cboard[x][y] != cword[step])
-                return false;
-            else {
-                if (step == cword.size()-1)
-                    return true;
-                for (auto d : dir) {
-                    int nx = x + d[0];
-                    int ny = y + d[1];
-                    // 搜索的关键，边界问题
-                    if (nx >= m || ny >= n || nx < 0 || ny < 0 || mark[nx][ny])
-                        continue;
-                    mark[x][y] = true;
-                    int f = dfs(nx, ny, step+1);
-                    mark[x][y] = false;
-                    if (f)
-                        return true;
-                }
+        int ans = 0;
+        int dfs (int x, int y, int step) {
+            int ac = 1;
+            for (int i = 0; i < 4; ++i) {
+                int nx = x+dir[i][0];
+                int ny = y+dir[i][1];
+                if (nx >= m || nx < 0 || ny >= n || ny < 0)
+                    continue;
+                if (mark[nx][ny])
+                    continue;
+                if (g[nx][ny] == 0)
+                    continue;
+                mark[nx][ny] = 1;
+                int l = dfs(nx , ny, step+1);
+                ac += l;
             }
-            return false;
+            return ac;
         }
-        bool exist(vector<vector<char>>& board, string word) {
-            cboard = board;
-            cword = word;
-            if (word.size() == 0)
-                return true;
-            if (board.size() == 0)
-                return false;
-            m = board.size();
-            n = board[0].size();
-            // 初始化二维vector
-            mark.resize(m);
-            for (int i = 0; i < m; ++i) {
-                for (int j = 0; j < n; ++j) {
-                    mark[i].push_back(false);
+        int maxAreaOfIsland(vector<vector<int>>& grid) {
+            g = grid;
+            memset(mark, 0, sizeof(mark));
+            m = grid.size();
+            n = grid[0].size();
+            for (int i = 0; i < grid.size(); ++i) {
+                for (int j = 0; j < grid[0].size(); ++j) {
+                    if (grid[i][j] == 0)
+                        continue;
+                    mark[i][j] = 1;
+                    int l = dfs(i , j, 1);
+                    memset(mark, 0, sizeof(mark));
+                    ans = l>ans?l:ans;
                 }
             }
-            for (int i = 0; i < m; ++i) {
-                for (int j = 0; j < n; ++j) {
-                    if (dfs(i, j, 0))
-                        return true;
-                }
-            }
-            return false;
+            return ans;
         }
     };
     Solution* s = new Solution();
-    vector<vector<char>> cboard = {
-            {'C','A','A'},
-            {'A','A','A'},
-            {'B','C','D'}
+    vector<vector<int>> cboard = {
+            {0,0,1,0,0,0,0,1,0,0,0,0,0},
+            {0,0,0,0,0,0,0,1,1,1,0,0,0},
+            {0,1,1,0,1,0,0,0,0,0,0,0,0},
+            {0,1,0,0,1,1,0,0,1,0,1,0,0},
+            {0,1,0,0,1,1,0,0,1,1,1,0,0},
+            {0,0,0,0,0,0,0,0,0,0,1,0,0},
+            {0,0,0,0,0,0,0,1,1,1,0,0,0},
+            {0,0,0,0,0,0,0,1,1,0,0,0,0}
     };
-    string w = "AAB";
-    cout<<s->exist(cboard, w)<<endl;
+    s->maxAreaOfIsland(cboard);
+    cout<<s->ans<<endl;
     return 0;
 }
