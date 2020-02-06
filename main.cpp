@@ -7,58 +7,42 @@ using namespace std;
 int main() {
     class Solution {
     public:
-        vector<vector<int>> g;
-        int mark[55][55];
-        int dir[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
-        int m, n;
-        int ans = 0;
-        int dfs (int x, int y, int step) {
-            int ac = 1;
-            for (int i = 0; i < 4; ++i) {
-                int nx = x+dir[i][0];
-                int ny = y+dir[i][1];
-                if (nx >= m || nx < 0 || ny >= n || ny < 0)
-                    continue;
-                if (mark[nx][ny])
-                    continue;
-                if (g[nx][ny] == 0)
-                    continue;
-                mark[nx][ny] = 1;
-                int l = dfs(nx , ny, step+1);
-                ac += l;
+        vector<int> searchRange(vector<int>& nums, int target) {
+            int l = 0;
+            int r = nums.size()-1;
+            int idx = -1;
+            while (l <= r) {
+                int mid = (l+r)/2;
+                if (nums[mid] == target) {
+                    idx = mid;
+                    break;
+                }
+                else if (nums[mid] < target) l = mid+1;
+                else r = mid-1;
             }
-            return ac;
-        }
-        int maxAreaOfIsland(vector<vector<int>>& grid) {
-            g = grid;
-            memset(mark, 0, sizeof(mark));
-            m = grid.size();
-            n = grid[0].size();
-            for (int i = 0; i < grid.size(); ++i) {
-                for (int j = 0; j < grid[0].size(); ++j) {
-                    if (grid[i][j] == 0)
-                        continue;
-                    mark[i][j] = 1;
-                    int l = dfs(i , j, 1);
-                    memset(mark, 0, sizeof(mark));
-                    ans = l>ans?l:ans;
+            if (idx == -1)
+                return {-1,-1};
+            int i,j;
+            for (i = idx; i >= 0; --i) {
+                if (nums[i] != target) {
+                    i++;
+                    break;
                 }
             }
-            return ans;
+            i = i==-1?0:i;
+            for (j = idx; j <= nums.size()-1; j++) {
+                if (nums[j] != target) {
+                    j--;
+                    break;
+                }
+            }
+            j = j==nums.size()?nums.size()-1:j;
+            return {i,j};
         }
     };
     Solution* s = new Solution();
-    vector<vector<int>> cboard = {
-            {0,0,1,0,0,0,0,1,0,0,0,0,0},
-            {0,0,0,0,0,0,0,1,1,1,0,0,0},
-            {0,1,1,0,1,0,0,0,0,0,0,0,0},
-            {0,1,0,0,1,1,0,0,1,0,1,0,0},
-            {0,1,0,0,1,1,0,0,1,1,1,0,0},
-            {0,0,0,0,0,0,0,0,0,0,1,0,0},
-            {0,0,0,0,0,0,0,1,1,1,0,0,0},
-            {0,0,0,0,0,0,0,1,1,0,0,0,0}
-    };
-    s->maxAreaOfIsland(cboard);
-    cout<<s->ans<<endl;
+    vector<int> nums = {1};
+    int target = 1;
+    s->searchRange(nums, target);
     return 0;
 }

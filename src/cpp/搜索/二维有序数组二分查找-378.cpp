@@ -1,4 +1,5 @@
 // 二分查找法
+// 时间复杂度：O(n*logn*logX) X为数组max-min
 class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
