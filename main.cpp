@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <map>
+#include <unordered_map>
 using namespace std;
 #define max(a,b) (a)>(b)?(a):(b)
 #define min(a,b) (a)<(b)?(a):(b)
@@ -7,42 +9,26 @@ using namespace std;
 int main() {
     class Solution {
     public:
-        vector<int> searchRange(vector<int>& nums, int target) {
+        int minNumberInRotateArray(vector<int> rotateArray) {
             int l = 0;
-            int r = nums.size()-1;
-            int idx = -1;
-            while (l <= r) {
-                int mid = (l+r)/2;
-                if (nums[mid] == target) {
-                    idx = mid;
-                    break;
-                }
-                else if (nums[mid] < target) l = mid+1;
-                else r = mid-1;
+            int r = rotateArray.size()-1;
+            while (l < r) {
+                int mid = (l+r) /2;
+                int v = rotateArray[mid];
+                if (mid == 0)
+                    return v;
+                if (v < rotateArray[mid-1])
+                    return v;
+                else if (v <= rotateArray[rotateArray.size()-1])
+                    r = mid-1;
+                else
+                    l = mid+1;
             }
-            if (idx == -1)
-                return {-1,-1};
-            int i,j;
-            for (i = idx; i >= 0; --i) {
-                if (nums[i] != target) {
-                    i++;
-                    break;
-                }
-            }
-            i = i==-1?0:i;
-            for (j = idx; j <= nums.size()-1; j++) {
-                if (nums[j] != target) {
-                    j--;
-                    break;
-                }
-            }
-            j = j==nums.size()?nums.size()-1:j;
-            return {i,j};
+            return rotateArray[l];
         }
     };
     Solution* s = new Solution();
-    vector<int> nums = {1};
-    int target = 1;
-    s->searchRange(nums, target);
+    vector<int> nums = {3,4,5,1,2};
+    cout<<s->minNumberInRotateArray(nums);
     return 0;
 }
