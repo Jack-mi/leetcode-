@@ -9,26 +9,17 @@ using namespace std;
 int main() {
     class Solution {
     public:
-        int minNumberInRotateArray(vector<int> rotateArray) {
-            int l = 0;
-            int r = rotateArray.size()-1;
-            while (l < r) {
-                int mid = (l+r) /2;
-                int v = rotateArray[mid];
-                if (mid == 0)
-                    return v;
-                if (v < rotateArray[mid-1])
-                    return v;
-                else if (v <= rotateArray[rotateArray.size()-1])
-                    r = mid-1;
-                else
-                    l = mid+1;
-            }
-            return rotateArray[l];
+        vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+        {
+
         }
     };
+
     Solution* s = new Solution();
-    vector<int> nums = {3,4,5,1,2};
-    cout<<s->minNumberInRotateArray(nums);
+    vector<int> nums = {2,3,4,2,6,2,5,1};
+    vector<int> ans = s->maxInWindows(nums, 3);
+    for (int i = 0; i < ans.size(); ++i) {
+        cout<<ans[i]<<' ';
+    }
     return 0;
 }
