@@ -10,8 +10,9 @@ void swap(int& a, int& b) {
  * */
 void heapDown(vector<int>& nums, int start, int end) {
     int cur = start;
-    int i = 2*start+1;
+    int i = 2*start+1; // root从零开始计数的左字节点
     for (; i <= end; cur = i, i = 2*cur+1) {
+        // 找出两个字节点中更大的那一个
         if (i < end && nums[i]<nums[i+1])
             i++;
         if (nums[cur] >= nums[i])
