@@ -10,7 +10,18 @@ using namespace std;
 #define max(a,b) (a)>(b)?(a):(b)
 #define min(a,b) (a)<(b)?(a):(b)
 
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
 
+    }
+};
 
 int main() {
     vector<vector<int>> matrix = {
@@ -22,7 +33,7 @@ int main() {
 //            {18, 21, 23, 26, 30}
     };
     Solution* s = new Solution();
-    cout<<s->findNumberIn2DArray(matrix, 5)<<endl;
+    cout<<s->replaceSpace("We are happy.");
     return 0;
 }
 
