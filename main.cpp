@@ -16,13 +16,41 @@ struct TreeNode {
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-class Solution {
-public:
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
 
+class CQueue {
+public:
+    stack<int> p, q;
+    CQueue() {}
+
+    void appendTail(int value) {
+        p.push(value);
+    }
+
+    int deleteHead() {
+        if (p.empty())
+            return -1;
+        while (!p.empty()) {
+            int x = p.top();
+            p.pop();
+            q.push(x);
+        }
+        int ans = q.top();
+        q.pop();
+        while (!q.empty()) {
+            int x = q.top();
+            q.pop();
+            p.push(x);
+        }
+        return ans;
     }
 };
 
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue* obj = new CQueue();
+ * obj->appendTail(value);
+ * int param_2 = obj->deleteHead();
+ */
 int main() {
     vector<vector<int>> matrix = {
             {1, 1}
