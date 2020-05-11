@@ -1,22 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <queue>
-#include <stack>
-#include <unordered_set>
-#include <cmath>
-using namespace std;
-#define max(a,b) (a)>(b)?(a):(b)
-#define min(a,b) (a)<(b)?(a):(b)
-
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 class Solution {
 public:
     vector<vector<int>> board;
@@ -79,39 +60,11 @@ public:
                 sum = a+b;
                 if (sum <= k)
                     board[i][j] = 1;
-//                cout<<board[i][j];
+                cout<<board[i][j];
             }
-//            cout<<endl;
+            cout<<endl;
         }
         bfs(0, 0, 1);
         return ans;
     }
 };
-
-int main() {
-    vector<int> num = {2,2,2,0,1};
-    vector<vector<char>> matrix = {
-            {'A','B','C','E'},
-            {'S','F','C','S'},
-            {'A','D','E','E'}
-    };
-    Solution* s = new Solution();
-    string c = "ABCB";
-    cout<<s->movingCount(3, 2, 17);
-    return 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
