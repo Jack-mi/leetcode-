@@ -8,7 +8,7 @@ public:
     using node = pair<int, int>;
     queue<node> q;
 
-    void bfs(int x, int y, int step) {
+    void bfs(int x, int y) {
         vis[0][0] = 1;
         q.push(node(0, 0));
         while (!q.empty()) {
@@ -64,7 +64,7 @@ public:
             }
             cout<<endl;
         }
-        bfs(0, 0, 1);
+        bfs(0, 0);
         return ans;
     }
 };

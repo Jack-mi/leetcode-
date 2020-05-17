@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/liuxiaosu/CLionProjects/leetcode-/main.cpp
+iostream
+-
+vector
+-
+map
+-
+unordered_map
+-
+queue
+-
+stack
+-
+unordered_set
+-
+cmath
+-
+

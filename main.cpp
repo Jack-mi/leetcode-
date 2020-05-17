@@ -17,87 +17,28 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
 class Solution {
 public:
-    vector<vector<int>> board;
-    int vis[101][101];
-    int M, N;
-    int ans;
-    int dir[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};
-    using node = pair<int, int>;
-    queue<node> q;
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* p1 = l1;
+        ListNode* p2 = l2;
+        while (p1 && p2) {
 
-    void bfs(int x, int y, int step) {
-        vis[0][0] = 1;
-        q.push(node(0, 0));
-        while (!q.empty()) {
-            node cur = q.front();
-            q.pop();
-            ans ++;
-            for (int i = 0; i < 4; ++i) {
-                int nx = cur.first+dir[i][0];
-                int ny = cur.second+dir[i][1];
-                // out-of-border
-                if (nx<0 || nx>=M || ny<0 || ny>=N)
-                    continue;
-                // vis
-                if (vis[nx][ny])
-                    continue;
-                // forbidden
-                if (board[nx][ny] == 0)
-                    continue;
-                vis[nx][ny] = 1;
-                q.push(node(nx, ny));
-            }
         }
-    }
-    int movingCount(int m, int n, int k) {
-        M = m;
-        N = n;
-        board.resize(m);
-        for (int i = 0; i < m; ++i) {
-            board[i].resize(n);
-        }
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                int sum = 0;
-                int a, b;
-                if (i < 10) {
-                    a = i;
-                } else {
-                    int p = i/10;
-                    int q = i-10*p;
-                    a = p+q;
-                }
-                if (j < 10) {
-                    b = j;
-                } else {
-                    int p = j/10;
-                    int q = j-10*p;
-                    b = p+q;
-                }
-                sum = a+b;
-                if (sum <= k)
-                    board[i][j] = 1;
-//                cout<<board[i][j];
-            }
-//            cout<<endl;
-        }
-        bfs(0, 0, 1);
-        return ans;
     }
 };
 
 int main() {
-    vector<int> num = {2,2,2,0,1};
-    vector<vector<char>> matrix = {
-            {'A','B','C','E'},
-            {'S','F','C','S'},
-            {'A','D','E','E'}
-    };
     Solution* s = new Solution();
     string c = "ABCB";
-    cout<<s->movingCount(3, 2, 17);
+    uint32_t n = 00000000000000000000000010000000;
+    cout<<s->hammingWeight(n);
     return 0;
 }
 
