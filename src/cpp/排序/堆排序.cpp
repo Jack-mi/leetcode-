@@ -22,7 +22,7 @@ void heapDown(vector<int>& nums, int start, int end) {
 }
 /*
  * 初始化堆：给定一个数组，构建最大堆
- * len/2-1为倒数第二行的最后一个节点，即最后一个拥有子节点的节点
+ * len/2-1为倒数第二行的一个节点，即最后一个拥有孩子节点的节点
  * 时间复杂度：O(n)
  * */
 void buildHeap(vector<int>& nums) {
@@ -31,6 +31,7 @@ void buildHeap(vector<int>& nums) {
         heapDown(nums, i, len-1);
 }
 /*
+ * 堆是一个完全二叉树
  * 给定一个数组，先构建堆，然后实现堆排序
  * 时间复杂度：O(n*logn)
  * */

@@ -25,12 +25,8 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode* p1 = l1;
-        ListNode* p2 = l2;
-        while (p1 && p2) {
+    bool verifyPostorder(vector<int>& postorder) {
 
-        }
     }
 };
 
