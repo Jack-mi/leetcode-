@@ -18,7 +18,6 @@ public:
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        unordered_map<int, int> count;
         int candidate = nums[0];
         int num = 0;
         for (auto cur: nums) {
