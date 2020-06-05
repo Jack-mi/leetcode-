@@ -26,27 +26,25 @@ struct ListNode {
 
 class Solution {
 public:
-    int majorityElement(vector<int>& nums) {
-        int candidate = nums[0];
-        int num = 0;
-        for (auto n:nums) {
-            if (n == candidate)
-                num++;
-            else {
-                if (--num < 0) {
-                    candidate = n;
-                    num = 0;
-                }
-            }
+    int maxSubArray(vector<int>& nums) {
+        int len = nums.size();
+        int ans = nums[0];
+        if (len == 1)
+            return ans;
+        vector<int> dp(len);
+        dp[0] = ans;
+        for (int i = 1; i < len; ++i) {
+            dp[i] = max(nums[i], nums[i]+dp[i-1]);
+            ans = max(ans, dp[i]);
         }
-        return candidate;
+        return ans;
     }
 };
 
 int main() {
-    vector<int> num = {1,2,3,0,2};
+    vector<int> num = {-2,1,-3,4,-1,2,1,-5,4};
     string ss = "abc";
     Solution* s = new Solution();
-    s->permutation(ss);
+    s->maxSubArray(num);
     return 0;
 }

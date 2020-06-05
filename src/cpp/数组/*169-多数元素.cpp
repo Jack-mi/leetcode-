@@ -15,6 +15,11 @@ public:
 };
 
 // way2
+/*
+ * （1）当num为0时，candidate肯定在右边
+ * （2）当被抵消的candidate是众数时，右边的众数依然是最终的众数
+ * （3）当被抵消的candidate不是众数是，那右边的众数就更是众数了
+ * */
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
