@@ -26,16 +26,22 @@ struct ListNode {
 
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
-        int len = nums.size();
-        int ans = nums[0];
-        if (len == 1)
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        vector<int> ans;
+        if (k == 0 || arr.size() == 0)
             return ans;
-        vector<int> dp(len);
-        dp[0] = ans;
-        for (int i = 1; i < len; ++i) {
-            dp[i] = max(nums[i], nums[i]+dp[i-1]);
-            ans = max(ans, dp[i]);
+        priority_queue<int> Q;
+        for (int i = 0; i < k; ++i)
+            Q.push(arr[i]);
+        for (int i = k; i < ans.size(); ++i) {
+            if (Q.top() > arr[i]) {
+                Q.pop();
+                Q.push(arr[i]);
+            }
+        }
+        for (int i = 0; i < k; ++i) {
+            ans.push_back(Q.top());
+            Q.pop();
         }
         return ans;
     }
@@ -43,8 +49,9 @@ public:
 
 int main() {
     vector<int> num = {-2,1,-3,4,-1,2,1,-5,4};
+    vector<int> nn = {1,3,5,2,0};
     string ss = "abc";
     Solution* s = new Solution();
-    s->maxSubArray(num);
+    s->getLeastNumbers(nn, 2);
     return 0;
 }
