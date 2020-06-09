@@ -1,29 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <queue>
-#include <set>
-#include <stack>
-#include <unordered_set>
-#include <cmath>
-using namespace std;
-#define max(a,b) (a)>(b)?(a):(b)
-#define min(a,b) (a)<(b)?(a):(b)
-
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
-
 class Solution {
 public:
     int m, n;
@@ -61,6 +35,11 @@ public:
                 if (matrix[i][j]=='0')
                     continue;
                 if (matrix[i-1][j-1]=='1' && matrix[i-1][j]=='1' && matrix[i][j-1]=='1') {
+                    /*
+                     * dp[i][j]表示以(i,j)为右下角的正方形最大长度
+                     * 只有当left，up和左上方的点都为'1'，且当前点也为'1'时才进行状态转移
+                     * 转移的逻辑为left，up和左上角点最小值+1
+                     * */
                     dp[i][j] = min(dp[i-1][j-1], min(dp[i][j-1], dp[i-1][j])) + 1;
 //                    int total = dp[i-1][j-1];
 //                    int up = dp[i-1][j];
@@ -79,12 +58,3 @@ public:
         return ans*ans;
     }
 };
-
-int main() {
-    vector<int> num = {-2,1,-3,4,-1,2,1,-5,4};
-    vector<vector<char>> nn = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
-    string ss = "a";
-    Solution* s = new Solution();
-    s->maximalSquare(nn);
-    return 0;
-}
