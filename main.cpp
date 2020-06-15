@@ -26,65 +26,34 @@ struct ListNode {
 
 class Solution {
 public:
-    int m, n;
-    int maximalSquare(vector<vector<char>>& matrix) {
-        int ans = 1;
-        // matrix is empty
-        m = matrix.size();
-        if (m == 0)
+    string num2str(int n) {
+        char str[10];
+        sprintf(str, "%d", n);
+        return string(str);
+    }
+    int findNthDigit(long n) {
+        if (n==0)
             return 0;
-        n = matrix[0].size();
-        if (n == 0)
-            return 0;
-
-        vector<vector<int>> dp;
-        dp.resize(m);
-        for (int i = 0; i < m; ++i) {
-            dp[i].resize(n);
+        int start = 1;
+        int digit = 1;
+        long count = 9;
+        while (n > count) {
+            n -= count;
+            digit++;
+            start *= 10;
+            count = 9*start*digit;
         }
-        int flag = 0;
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (matrix[i][j] == '1') {
-                    dp[i][j] = 1;
-                    flag = 1;
-                }
-            }
-        }
-        // all matrix is composed of '0'
-        if (!flag)
-            return 0;
-
-        // dynamic programming
-        for (int i = 1; i < m; ++i) {
-            for (int j = 1; j < n; ++j) {
-                if (matrix[i][j]=='0')
-                    continue;
-                if (matrix[i-1][j-1]=='1' && matrix[i-1][j]=='1' && matrix[i][j-1]=='1') {
-                    dp[i][j] = min(dp[i-1][j-1], min(dp[i][j-1], dp[i-1][j])) + 1;
-//                    int total = dp[i-1][j-1];
-//                    int up = dp[i-1][j];
-//                    int left = dp[i][j-1];
-                    ans = max(ans, dp[i][j]);
-                }
-            }
-        }
-        // test
-//        for (int i = 0; i < m; ++i) {
-//            for (int j = 0; j < n; ++j) {
-//                cout<<dp[i][j]<<' ';
-//            }
-//            cout<<endl;
-//        }
-        return ans*ans;
+        int number = start+(n-1)/digit;
+        string real = num2str(number);
+        return real[(n-1)%digit] - '0';
     }
 };
 
 int main() {
-    vector<int> num = {-2,1,-3,4,-1,2,1,-5,4};
-    vector<vector<char>> nn = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
-    string ss = "a";
+    vector<int> num = {3,30,34,5,9};
+    vector<vector<int>> nn = {{1,3},{2,6},{8,10},{15,18}};
+    string str = "abcabcbb";
     Solution* s = new Solution();
-    s->maximalSquare(nn);
+    cout<<s->findNthDigit(1000);
     return 0;
 }
