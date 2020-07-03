@@ -26,34 +26,25 @@ struct ListNode {
 
 class Solution {
 public:
-    string num2str(int n) {
-        char str[10];
-        sprintf(str, "%d", n);
-        return string(str);
-    }
-    int findNthDigit(long n) {
-        if (n==0)
-            return 0;
-        int start = 1;
-        int digit = 1;
-        long count = 9;
-        while (n > count) {
-            n -= count;
-            digit++;
-            start *= 10;
-            count = 9*start*digit;
+    int lengthOfLongestSubstring(string s) {
+        int l = -1;
+        int ans = 0;
+        vector<int> hash(128, -1);
+        for (int r = 0; r < s.size(); ++r) {
+            char c = s[r];
+            l = max(l, hash[c]);
+            hash[c] = r;
+            ans = max(ans, r-l);
         }
-        int number = start+(n-1)/digit;
-        string real = num2str(number);
-        return real[(n-1)%digit] - '0';
+        return ans;
     }
 };
 
 int main() {
     vector<int> num = {3,30,34,5,9};
-    vector<vector<int>> nn = {{1,3},{2,6},{8,10},{15,18}};
+    vector<vector<int>> nn = {{1,2,5},{3,2,1}};
     string str = "abcabcbb";
     Solution* s = new Solution();
-    cout<<s->findNthDigit(1000);
+    s->lengthOfLongestSubstring(str);
     return 0;
 }

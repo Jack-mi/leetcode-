@@ -2,10 +2,10 @@ class Solution {
 public:
     struct cmp {
         bool operator()(const string& a, const string& b) {
-            return a+b>b+a;
+            return a+b<b+a;
         }
     };
-    string largestNumber(vector<int>& nums) {
+    string minNumber(vector<int>& nums) {
         vector<string> snums;
         /*
          * 考虑所有数都为0的情况
