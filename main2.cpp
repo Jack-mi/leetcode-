@@ -23,15 +23,10 @@ struct ListNode {
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
+
 class Solution {
 public:
-    int lastRemaining(int n, int m) {
-        int ans = 0;
-        for (int i = 2; i <= n; ++i) {
-            ans = (ans+m)%i;
-        }
-        return ans;
-    }
+
 };
 
 int main() {
@@ -39,8 +34,6 @@ int main() {
     vector<vector<int>> nn = {{1,2,5},{3,2,1}};
     string str = "abcabcbb";
     Solution* s = new Solution();
-    int n = 5;
-    int m = 3;
-    s->lastRemaining(n, m);
+    s->lengthOfLongestSubstring(str);
     return 0;
 }
