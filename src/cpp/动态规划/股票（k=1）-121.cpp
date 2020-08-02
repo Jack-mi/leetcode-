@@ -47,31 +47,24 @@ public:
  * */
 class Solution {
 public:
-    int INF = -999999;
+    int INF = 0x7fffff;
     int maxProfit(vector<int>& prices) {
+        int ans = 0;
         int len = prices.size();
         if (len == 0)
-            return 0;
-        int k = 1;
-        int dp[len][k+1][2];
+            return ans;
+        // 2d: 是否持有
+        // 3d: sell次数
+        int dp[len][2][2];
         dp[0][0][0] = 0;
-        dp[0][0][1] = -prices[0];
-        for (int i = 1; i <= k; ++i) {
-            dp[0][i][0] = INF;
-            dp[0][i][1] = INF;
-        }
+        dp[0][0][1] = -INF;
+        dp[0][1][0] = -prices[0];
+        dp[0][1][1] = -INF;
         for (int i = 1; i < len; ++i) {
             dp[i][0][0] = 0;
-            dp[i][0][1] = max(dp[i-1][0][1], dp[i-1][0][0]-prices[i]);
-            for (int j = 1; j <= k; ++j) {
-                dp[i][j][0] = max(dp[i-1][j][0], dp[i-1][j-1][1]+prices[i]);
-                dp[i][j][1] = max(dp[i-1][j][1], dp[i-1][j][0]-prices[i]);
-            }
+            dp[i][0][1] = max(dp[i-1][0][1], dp[i-1][1][0]+prices[i]);
+            dp[i][1][0] = max(dp[i-1][0][0]-prices[i], dp[i-1][1][0]);
         }
-        int ans = INF;
-        for (int i = 0; i <= k; ++i) {
-            ans = max(ans, dp[len-1][i][0]);
-        }
-        return ans;
+        return max(dp[len-1][0][1], 0);
     }
 };

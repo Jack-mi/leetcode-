@@ -23,24 +23,26 @@ struct ListNode {
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
+
 class Solution {
 public:
-    int lastRemaining(int n, int m) {
-        int ans = 0;
-        for (int i = 2; i <= n; ++i) {
-            ans = (ans+m)%i;
+    string ans = "";
+    string decodeString(string s) {
+        if (s.size() == 0)
+            return ans;
+        for (int i = 0; i < s.size(); ++i) {
+
         }
-        return ans;
     }
 };
 
 int main() {
-    vector<int> num = {3,30,34,5,9};
-    vector<vector<int>> nn = {{1,2,5},{3,2,1}};
+    vector<int> num = {1,2,3};
+    vector<vector<int>> nn = {{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}};
     string str = "abcabcbb";
     Solution* s = new Solution();
-    int n = 5;
+    int n = 0;
     int m = 3;
-    s->lastRemaining(n, m);
+    s->permute(num);
     return 0;
 }
