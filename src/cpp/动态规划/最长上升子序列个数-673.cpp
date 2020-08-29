@@ -1,9 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#define ll long long
-using namespace std;
-
 class Solution {
 public:
     int findNumberOfLIS(vector<int>& nums) {
@@ -39,10 +33,3 @@ public:
         return cnt[ans];
     }
 };
-
-int main() {
-    Solution* s = new Solution();
-    vector<int> nums = {1,2,3,1,2,3,1,2,3};
-    cout<<s->findNumberOfLIS(nums);
-    return 0;
-}
