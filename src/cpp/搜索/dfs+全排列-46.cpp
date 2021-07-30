@@ -25,8 +25,10 @@ public:
             vector<int> cur(len);
             vis = cur;
             vis[i] = 1;
+
             vector<int> path;
             path.push_back(nums[i]);
+
             dfs(nums, path);
         }
         return ans;

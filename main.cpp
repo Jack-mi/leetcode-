@@ -7,6 +7,7 @@
 #include <stack>
 #include <unordered_set>
 #include <cmath>
+#include <algorithm>
 using namespace std;
 #define max(a,b) (a)>(b)?(a):(b)
 #define min(a,b) (a)<(b)?(a):(b)
@@ -21,53 +22,45 @@ struct TreeNode {
 struct ListNode {
     int val;
     ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x, ListNode* nxt = NULL) : val(x), next(nxt) {}
+};
+
+struct DlinkNode {
+    int key, value;
+    DlinkNode* prev, *next;
+    DlinkNode(): key(0), value(0), prev(nullptr), next(nullptr) {}
+    DlinkNode(int k, int v):key(k), value(v), prev(nullptr), next(nullptr) {}
 };
 
 class Solution {
 public:
-    int tar, len;
-    vector<vector<int>> ans;
-    vector<int> path;
-    vector<int> candi;
-    void dfs(int start, int acc) {
-        if (acc == tar) {
-            ans.push_back(path);
-            return ;
+    int maxProduct(vector<int>& nums) {
+        if (nums.empty())
+            return 0;
+        int ans = nums[0];
+        vector<vector<int>> dp(nums.size());
+        for (int i = 0; i < nums.size(); ++i) {
+            dp[i].resize(2);
+            dp[i][1] = nums[i];
         }
-        for (int i = start; i < len; ++i) {
-            if (candi[i] > tar)
-                break;
-            if (acc + candi[i] > tar)
-                return ;
-            path.push_back(candi[i]);
-            dfs(i, acc+candi[i]);
-            path.pop_back();
-        }
-    }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        sort(candidates.begin(), candidates.end());
-        candi = candidates;
-        len = candidates.size();
-        tar = target;
-        for (int i = 0; i < len; ++i) {
-            if (candidates[i] > target)
-                break;
-            path.push_back(candidates[i]);
-            dfs(i, candidates[i]);
-            path.pop_back();
+        dp[0][0] = 1;
+        for (int i = 1; i < nums.size(); ++i) {
+            dp[i][1] = max(dp[i-1][0]*nums[i], dp[i-1][1]*nums[i]);
+            dp[i][0] = max(dp[i-1][0], dp[i-1][1]);
+            ans = max(ans, max(dp[i][0], dp[i][1]));
         }
         return ans;
     }
 };
 
 int main() {
-    vector<int> num = {1,2,3};
-    vector<vector<int>> nn = {{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}};
-    string str = "abcabcbb";
     Solution* s = new Solution();
-    int n = 0;
-    int m = 3;
-    s->permute(num);
+    vector<int> arr1 = {3,9,20,15,7};
+    vector<int> arr2 = {9,3,15,20,7};
+    vector<vector<char>> g = {{'a'}, {'a'}};
+    string str = "aaa";
+    s->uniquePaths(3, 7);
     return 0;
 }
+
+

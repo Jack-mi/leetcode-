@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/bytedance/CLionProjects/leetcode-/main.cpp
+/Users/liuxiaosu/CLionProjects/leetcode-/main.cpp
 iostream
 -
 vector
@@ -24,5 +24,7 @@ stack
 unordered_set
 -
 cmath
+-
+algorithm
 -
 

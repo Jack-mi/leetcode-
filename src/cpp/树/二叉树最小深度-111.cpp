@@ -1,3 +1,4 @@
+// way-1
 class Solution {
 public:
     int bfs(TreeNode* root) {
@@ -29,5 +30,31 @@ public:
         if (!root)
             return 0;
         return bfs(root);
+    }
+};
+
+// way-2
+class Solution {
+public:
+    int ans = INT_MAX;
+
+    void dfs(TreeNode* root, int depth) {
+        if (!root->left && !root->right) {
+            ans = min(ans, depth);
+            return ;
+        }
+        if (root->left)
+            dfs(root->left, depth+1);
+        if (root->right)
+            dfs(root->right, depth+1);
+    }
+
+    int minDepth(TreeNode* root) {
+        if (!root)
+            return 0;
+        if (!root->left && !root->right)
+            return 1;
+        dfs(root, 1);
+        return ans;
     }
 };
