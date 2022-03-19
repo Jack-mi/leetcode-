@@ -34,33 +34,19 @@ struct DlinkNode {
 
 class Solution {
 public:
-    int maxProduct(vector<int>& nums) {
-        if (nums.empty())
-            return 0;
-        int ans = nums[0];
-        vector<vector<int>> dp(nums.size());
-        for (int i = 0; i < nums.size(); ++i) {
-            dp[i].resize(2);
-            dp[i][1] = nums[i];
-        }
-        dp[0][0] = 1;
-        for (int i = 1; i < nums.size(); ++i) {
-            dp[i][1] = max(dp[i-1][0]*nums[i], dp[i-1][1]*nums[i]);
-            dp[i][0] = max(dp[i-1][0], dp[i-1][1]);
-            ans = max(ans, max(dp[i][0], dp[i][1]));
-        }
-        return ans;
+    int lengthOfLongestSubstring(string s) {
+
     }
 };
 
 int main() {
     Solution* s = new Solution();
-    vector<int> arr1 = {3,9,20,15,7};
-    vector<int> arr2 = {9,3,15,20,7};
+    vector<int> arr1 = {1,12,-5,-6,50,3};
+    vector<int> arr2 = {5};
     vector<vector<char>> g = {{'a'}, {'a'}};
     string str = "aaa";
-    cout<<"hello world!"<<endl;
-//    s->uniquePaths(3, 7);
+//    cout<<"hello world!"<<endl;
+    cout<<s->findMaxAverage(arr1, 4)<<endl;
     return 0;
 }
 
