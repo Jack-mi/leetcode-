@@ -59,7 +59,8 @@ int main() {
     vector<int> arr2 = {9,3,15,20,7};
     vector<vector<char>> g = {{'a'}, {'a'}};
     string str = "aaa";
-    s->uniquePaths(3, 7);
+    cout<<"hello world!"<<endl;
+//    s->uniquePaths(3, 7);
     return 0;
 }
 
