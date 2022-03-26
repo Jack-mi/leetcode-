@@ -34,19 +34,32 @@ struct DlinkNode {
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-
+    // Equivalent to finding the longest subarray which contains k 0s.
+    int longestOnes(vector<int>& nums, int k) {
+        int l = 0;
+        int ans = 0;
+        int sum = 0;
+        for (int r = 0; r < nums.size(); ++r) {
+            if (nums[r] == 0) sum++;
+            while (sum > k) {
+                if (nums[l] == 0) sum--;
+                l++;
+            }
+            ans = max(ans, r-l+1);
+        }
+        return ans;
     }
 };
 
 int main() {
     Solution* s = new Solution();
-    vector<int> arr1 = {1,12,-5,-6,50,3};
+    vector<int> arr1 = {1,1,1,0,0,0,1,1,1,1,0};
     vector<int> arr2 = {5};
     vector<vector<char>> g = {{'a'}, {'a'}};
-    string str = "aaa";
+    string str1 = "aa";
+    string str2 = "aa";
 //    cout<<"hello world!"<<endl;
-    cout<<s->findMaxAverage(arr1, 4)<<endl;
+    cout<<s->longestOnes(arr1, 2);
     return 0;
 }
 
