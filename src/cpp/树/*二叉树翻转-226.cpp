@@ -1,14 +1,12 @@
-
-// 递归法
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-        if (!root)
+        if (!root) {
             return root;
-        TreeNode* r = invertTree(root->left);
-        TreeNode* l = invertTree(root->right);
-        root->right = r;
-        root->left = l;
-        return root;
+        }
+        TreeNode* ans = new TreeNode(root->val);
+        ans->left = invertTree(root->right);
+        ans->right = invertTree(root->left);
+        return ans;
     }
 };

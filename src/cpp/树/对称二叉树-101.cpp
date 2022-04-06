@@ -1,3 +1,28 @@
+// way1
+class Solution {
+public:
+    bool sym(TreeNode* q, TreeNode* p) {
+        if (q&&!p || !q&&p) {
+            return false;
+        }
+        else if (!q && !p) {
+            return true;
+        }
+        else {
+            if (q->val != p->val) {
+                return false;
+            }
+            return sym(q->left, p->right) && sym(q->right, p->left);
+        }
+    }
+    bool isSymmetric(TreeNode* root) {
+        if (!root)
+            return false;
+        return sym(root->left, root->right);
+    }
+};
+
+// way2
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
