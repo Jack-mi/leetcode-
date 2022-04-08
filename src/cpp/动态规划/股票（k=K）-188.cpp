@@ -20,6 +20,8 @@ public:
         if (k > len/2) {
             return maxprofit(prices);
         }
+        // 第二维度表示截止当天卖了几次
+        // 第三维度表示当天是否持有
         int dp[len][k+1][2];
         dp[0][0][0] = 0;
         dp[0][0][1] = -prices[0];

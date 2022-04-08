@@ -50,34 +50,17 @@ struct DlinkNode {
     DlinkNode(int k, int v):key(k), value(v), prev(nullptr), next(nullptr) {}
 };
 
-class Solution {
-public:
-    int ans = INT_MIN;
-    int maxGain(TreeNode* root) {
-        if (!root) {
-            return 0;
-        }
-        int cur = root->val;
-        int lnum = max(maxGain(root->left), 0);
-        int rnum = max(maxGain(root->right), 0);
-        ans = max(ans, cur+lnum+rnum);
-        return root->val + max(lnum, rnum);
-    }
-    int maxPathSum(TreeNode* root) {
-        maxGain(root);
-        return ans;
-    }
-};
+
 
 int main() {
     Solution* s = new Solution();
-    vector<int> arr1 = {1, 2, 2, 3, 4, 5};
+    vector<int> arr1 = {2,3,2};
     vector<int> arr2 = {5};
     vector<vector<char>> g = {{'a'}, {'a'}};
+    vector<vector<int>> aa = {{1,3},{0,2},{1,3},{0,2}};
     string str1 = "ab";
     string str2 = "ba";
-//    cout<<"hello world!"<<endl;
-    s->containsNearbyAlmostDuplicate(arr1, 3, 0);
+    cout<<s->rob(arr1);
     return 0;
 }
 
